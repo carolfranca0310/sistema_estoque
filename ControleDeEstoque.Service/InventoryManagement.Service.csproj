@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ControleDeEstoque.Domain\ControleDeEstoque.Domain.csproj" />
-    <ProjectReference Include="..\ControleDeEstoque.Infra\ControleDeEstoque.Infra.csproj" />
+    <ProjectReference Include="..\ControleDeEstoque.Domain\InventoryManagement.Domain.csproj" />
+    <ProjectReference Include="..\ControleDeEstoque.Infra\InventoryManagement.Infra.csproj" />
   </ItemGroup>
 
 </Project>

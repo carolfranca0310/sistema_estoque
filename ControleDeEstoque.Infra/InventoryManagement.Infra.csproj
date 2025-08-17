@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ControleDeEstoque.Domain\ControleDeEstoque.Domain.csproj" />
+    <ProjectReference Include="..\ControleDeEstoque.Domain\InventoryManagement.Domain.csproj" />
   </ItemGroup>
 
 </Project>
