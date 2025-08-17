@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36310.24 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleEstoque", "ControleEstoque.csproj", "{28333C0A-D6EB-484A-8C26-275CF153B70B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleDeEstoque.API", "ControleDeEstoque.API.csproj", "{28333C0A-D6EB-484A-8C26-275CF153B70B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleDeEstoque.Service", "..\ControleDeEstoque.Service\ControleDeEstoque.Service.csproj", "{9B3F3B01-AB8F-4A67-8351-C298CB52998A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleDeEstoque.Domain", "..\ControleDeEstoque.Domain\ControleDeEstoque.Domain.csproj", "{CFEDB127-CAAA-4A04-92A8-A9C7EBE6CFA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleDeEstoque.Infra", "..\ControleDeEstoque.Infra\ControleDeEstoque.Infra.csproj", "{207DD740-EFF5-4D98-B1E6-44870152B0CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{28333C0A-D6EB-484A-8C26-275CF153B70B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28333C0A-D6EB-484A-8C26-275CF153B70B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28333C0A-D6EB-484A-8C26-275CF153B70B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B3F3B01-AB8F-4A67-8351-C298CB52998A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B3F3B01-AB8F-4A67-8351-C298CB52998A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B3F3B01-AB8F-4A67-8351-C298CB52998A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B3F3B01-AB8F-4A67-8351-C298CB52998A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFEDB127-CAAA-4A04-92A8-A9C7EBE6CFA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFEDB127-CAAA-4A04-92A8-A9C7EBE6CFA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFEDB127-CAAA-4A04-92A8-A9C7EBE6CFA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFEDB127-CAAA-4A04-92A8-A9C7EBE6CFA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{207DD740-EFF5-4D98-B1E6-44870152B0CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{207DD740-EFF5-4D98-B1E6-44870152B0CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{207DD740-EFF5-4D98-B1E6-44870152B0CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{207DD740-EFF5-4D98-B1E6-44870152B0CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
