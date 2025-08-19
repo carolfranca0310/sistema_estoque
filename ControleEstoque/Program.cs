@@ -1,4 +1,8 @@
+using InventoryManagement.Domain.Interfaces.IRepository;
+using InventoryManagement.Domain.Interfaces.IService;
 using InventoryManagement.Infra.Context;
+using InventoryManagement.Infra.Setup;
+using InventoryManagement.Service.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +19,9 @@ string connectionString = builder.Configuration.GetConnectionString("DefaultConn
 
 builder.Services.AddDbContext<InventoryContext>(options =>
         options.UseSqlServer(connectionString));
+
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.RegisterRepositories();
 
 var app = builder.Build();
 

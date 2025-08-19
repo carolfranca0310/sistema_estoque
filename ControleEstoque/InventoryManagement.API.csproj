@@ -15,12 +15,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\ControleDeEstoque.Domain\InventoryManagement.Domain.csproj" />
+    <ProjectReference Include="..\ControleDeEstoque.Service\InventoryManagement.Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ControleDeEstoque.Domain\InventoryManagement.Domain.csproj" />
-    <ProjectReference Include="..\ControleDeEstoque.Service\InventoryManagement.Service.csproj" />
+    <Folder Include="Setup\" />
   </ItemGroup>
 
 </Project>
