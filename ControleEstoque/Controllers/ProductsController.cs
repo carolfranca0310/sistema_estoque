@@ -21,5 +21,59 @@ namespace InventoryManagement.API.Controllers
             Product savedProduct = await _productService.CreateAsync(product);
             return Ok(savedProduct);
         }
+
+        [HttpGet("id")]
+        public async Task<IActionResult> Get(int id)
+        {
+
+            var foundProduct = await _productService.GetAsync(id);
+
+            if (foundProduct == null)
+            {
+                return NotFound(new { message = "Esse ID não existe" });
+            }
+
+
+            return Ok(foundProduct);
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var products = await _productService.GetAllAsync();
+
+            if (!products.Any())
+                return NotFound(new { message = "Nenhum produto encontrado" });
+
+            return Ok(products);
+        }
+
+        [HttpPut("id")]
+        public async Task<IActionResult> Update(int id, [FromBody] Product updatedProduct)
+        {
+            if (updatedProduct == null || id != updatedProduct.Id)
+                return BadRequest(new { message = "Dados inválidos." });
+
+            var product = await _productService.UpdateAsync(id, updatedProduct);
+
+            if (product == null)
+                return NotFound(new { message = "Produto não encontrado." });
+
+            return Ok(product);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var deletedProduct = await _productService.DeleteAsync(id);
+            if (deletedProduct == null)
+            {
+                return NotFound(new { message = "Nenhum produto encontrado" });
+            }
+
+            return Ok(new { message = $"{deletedProduct.Name} apagado!" });
+        }
+
     }
 }

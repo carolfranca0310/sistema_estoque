@@ -20,7 +20,22 @@ namespace InventoryManagement.Service.Services
 
         public Task<Product> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            return _repository.GetAsync(id);
+        }
+
+        public async Task<List<Product>> GetAllAsync()
+        {
+            return await _repository.GetAllAsync();
+        }
+
+        public async Task<Product> UpdateAsync(int id, Product updatedProduct)
+        {
+            return await _repository.UpdateAsync(id, updatedProduct);
+        }
+
+        public async Task<Product> DeleteAsync(int id)
+        {
+            return await _repository.DeleteAsync(id);
         }
     }
 }
