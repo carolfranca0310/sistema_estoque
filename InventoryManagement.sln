@@ -1,15 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36310.24 d17.14
+VisualStudioVersion = 17.14.36310.24
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManagement.API", "InventoryManagement.API.csproj", "{28333C0A-D6EB-484A-8C26-275CF153B70B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManagement.API", "src\ControleEstoque\InventoryManagement.API.csproj", "{28333C0A-D6EB-484A-8C26-275CF153B70B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManagement.Service", "..\ControleDeEstoque.Service\InventoryManagement.Service.csproj", "{9B3F3B01-AB8F-4A67-8351-C298CB52998A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManagement.Service", "src\ControleDeEstoque.Service\InventoryManagement.Service.csproj", "{9B3F3B01-AB8F-4A67-8351-C298CB52998A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManagement.Domain", "..\ControleDeEstoque.Domain\InventoryManagement.Domain.csproj", "{CFEDB127-CAAA-4A04-92A8-A9C7EBE6CFA0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManagement.Domain", "src\ControleDeEstoque.Domain\InventoryManagement.Domain.csproj", "{CFEDB127-CAAA-4A04-92A8-A9C7EBE6CFA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManagement.Infra", "..\ControleDeEstoque.Infra\InventoryManagement.Infra.csproj", "{207DD740-EFF5-4D98-B1E6-44870152B0CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManagement.Infra", "src\ControleDeEstoque.Infra\InventoryManagement.Infra.csproj", "{207DD740-EFF5-4D98-B1E6-44870152B0CE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +38,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{28333C0A-D6EB-484A-8C26-275CF153B70B} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{9B3F3B01-AB8F-4A67-8351-C298CB52998A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{CFEDB127-CAAA-4A04-92A8-A9C7EBE6CFA0} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{207DD740-EFF5-4D98-B1E6-44870152B0CE} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B280DDCD-093F-4479-BC9C-3493EDFE32F6}
