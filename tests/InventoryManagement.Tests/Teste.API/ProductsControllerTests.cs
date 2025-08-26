@@ -18,6 +18,7 @@ namespace InventoryManagement.Tests.Teste.API
             _controller = new ProductsController(_serviceMock.Object);
         }
 
+        #region Get
         [Fact]
         public async Task GetProducts_ShouldReturnSuccess()
         {
@@ -56,6 +57,7 @@ namespace InventoryManagement.Tests.Teste.API
 
             //Assert
             Assert.IsType<NotFoundObjectResult>(result);
-        }
+        } 
+        #endregion
     }
 }
