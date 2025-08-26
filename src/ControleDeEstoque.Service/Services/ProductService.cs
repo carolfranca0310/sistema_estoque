@@ -24,7 +24,7 @@ namespace InventoryManagement.Service.Services
             return productDTO;
         }
 
-        public async Task<ProductDTO> GetAsync(int id)
+        public async Task<ProductDTO?> GetAsync(int id)
         {
             var productEntity = await _repository.GetAsync(id);
 

@@ -24,7 +24,6 @@ namespace InventoryManagement.API.Controllers
         [HttpGet("id")]
         public async Task<IActionResult> Get(int id)
         {
-
             var foundProduct = await _productService.GetAsync(id);
 
             if (foundProduct == null)
@@ -32,9 +31,7 @@ namespace InventoryManagement.API.Controllers
                 return NotFound(new { message = "Esse ID não existe" });
             }
 
-
             return Ok(foundProduct);
-
         }
 
         [HttpGet]
