@@ -1,6 +1,8 @@
-﻿using InventoryManagement.Domain.Entity;
+﻿using InventoryManagement.Domain.DTO;
+using InventoryManagement.Domain.Entity;
 using InventoryManagement.Domain.Interfaces.IRepository;
 using InventoryManagement.Domain.Interfaces.IService;
+using InventoryManagement.Domain.Setup;
 
 namespace InventoryManagement.Service.Services
 {
@@ -13,29 +15,56 @@ namespace InventoryManagement.Service.Services
             _repository = repository;
         }
 
-        public Task<Product> CreateAsync(Product product)
+        public async Task<ProductDTO> CreateAsync(ProductCreateDTO productCreate)
         {
-            return _repository.CreateAsync(product);
+            var product = AutoMapperConfig.ProductCreateDTOFromEntity(productCreate);
+
+            var productDTO = AutoMapperConfig.ProductFromDTO(await _repository.CreateAsync(product));
+
+            return productDTO;
         }
 
-        public Task<Product> GetAsync(int id)
+        public async Task<ProductDTO> GetAsync(int id)
         {
-            return _repository.GetAsync(id);
+            var productEntity = await _repository.GetAsync(id);
+
+            var productDTO = AutoMapperConfig.ProductFromDTO(productEntity);
+            return productDTO;
         }
 
-        public async Task<List<Product>> GetAllAsync()
+        public async Task<List<ProductDTO>> GetAllAsync()
         {
-            return await _repository.GetAllAsync();
+            var productEntity = await _repository.GetAllAsync();
+
+            var productDTO = productEntity
+                .Select(p => AutoMapperConfig.ProductFromDTO(p))
+                .ToList();
+            return productDTO;
         }
 
-        public async Task<Product> UpdateAsync(int id, Product updatedProduct)
+        public async Task<ProductDTO?> UpdateAsync(int id, ProductUpdateDTO updatedProduct)
         {
-            return await _repository.UpdateAsync(id, updatedProduct);
+            var foundProduct = await _repository.GetAsync(id);
+
+            if (foundProduct == null)
+                return null;
+
+            var product = AutoMapperConfig.ProductUpdateDTOFromEntity(updatedProduct);
+
+            var productDTO = AutoMapperConfig.ProductFromDTO(await _repository.UpdateAsync(id, product));
+
+            return productDTO;
         }
 
-        public async Task<Product> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            return await _repository.DeleteAsync(id);
+            var foundProduct = await _repository.GetAsync(id);
+
+            if (foundProduct == null)
+                return false;
+
+            await _repository.DeleteAsync(id);
+            return true;
         }
     }
 }

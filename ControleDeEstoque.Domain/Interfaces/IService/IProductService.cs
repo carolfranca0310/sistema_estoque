@@ -1,14 +1,15 @@
-﻿using InventoryManagement.Domain.Entity;
+﻿using InventoryManagement.Domain.DTO;
+using InventoryManagement.Domain.Entity;
 
 namespace InventoryManagement.Domain.Interfaces.IService
 {
     public interface IProductService
     {
-        Task<Product> CreateAsync(Product product);
-        Task<Product> GetAsync(int id);
-        Task<List<Product>> GetAllAsync();
-        Task<Product> UpdateAsync(int id, Product updatedProduct);
-        Task<Product> DeleteAsync(int id);
+        Task<ProductDTO> CreateAsync(ProductCreateDTO product);
+        Task<ProductDTO> GetAsync(int id);
+        Task<List<ProductDTO>> GetAllAsync();
+        Task<ProductDTO?> UpdateAsync(int id, ProductUpdateDTO updatedProduct);
+        Task<bool> DeleteAsync(int id);
 
     }
 }

@@ -19,8 +19,4 @@
     <ProjectReference Include="..\ControleDeEstoque.Service\InventoryManagement.Service.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Setup\" />
-  </ItemGroup>
-
 </Project>

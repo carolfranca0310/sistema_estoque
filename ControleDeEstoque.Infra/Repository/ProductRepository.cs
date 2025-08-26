@@ -47,14 +47,12 @@ namespace InventoryManagement.Infra.Repository
             return product;
         }
 
-        public async Task<Product> DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
             var product = await GetAsync(id);
 
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
-
-            return product;
         }
     }
 }

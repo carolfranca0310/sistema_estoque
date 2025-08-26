@@ -8,7 +8,7 @@ namespace InventoryManagement.Domain.Interfaces.IRepository
         Task<Product> GetAsync(int id);
         Task<List<Product>> GetAllAsync();
         Task<Product> UpdateAsync(int id, Product updatedProduct);
-        Task<Product> DeleteAsync(int id);
+        Task DeleteAsync(int id);
 
     }
 }

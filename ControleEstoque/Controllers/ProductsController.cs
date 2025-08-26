@@ -1,6 +1,5 @@
-﻿using InventoryManagement.Domain.Entity;
+﻿using InventoryManagement.Domain.DTO;
 using InventoryManagement.Domain.Interfaces.IService;
-using InventoryManagement.Service.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryManagement.API.Controllers
@@ -16,9 +15,9 @@ namespace InventoryManagement.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Product product)
+        public async Task<IActionResult> Create([FromBody] ProductCreateDTO product)
         {
-            Product savedProduct = await _productService.CreateAsync(product);
+            ProductDTO savedProduct = await _productService.CreateAsync(product);
             return Ok(savedProduct);
         }
 
@@ -50,9 +49,9 @@ namespace InventoryManagement.API.Controllers
         }
 
         [HttpPut("id")]
-        public async Task<IActionResult> Update(int id, [FromBody] Product updatedProduct)
+        public async Task<IActionResult> Update(int id, [FromBody] ProductUpdateDTO updatedProduct)
         {
-            if (updatedProduct == null || id != updatedProduct.Id)
+            if (updatedProduct == null)
                 return BadRequest(new { message = "Dados inválidos." });
 
             var product = await _productService.UpdateAsync(id, updatedProduct);
@@ -66,13 +65,11 @@ namespace InventoryManagement.API.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            var deletedProduct = await _productService.DeleteAsync(id);
-            if (deletedProduct == null)
-            {
+            bool deletedProduct = await _productService.DeleteAsync(id);
+            if (!deletedProduct)
                 return NotFound(new { message = "Nenhum produto encontrado" });
-            }
 
-            return Ok(new { message = $"{deletedProduct.Name} apagado!" });
+            return Ok(new { message = "Produto apagado!" });
         }
 
     }
