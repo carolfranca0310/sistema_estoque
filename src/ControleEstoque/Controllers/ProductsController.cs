@@ -17,7 +17,11 @@ namespace InventoryManagement.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] ProductCreateDTO product)
         {
-            ProductDTO savedProduct = await _productService.CreateAsync(product);
+            ProductDTO? savedProduct = await _productService.CreateAsync(product);
+
+            if (savedProduct == null)
+                return BadRequest("Erro ao salvar produto");
+
             return Ok(savedProduct);
         }
 
@@ -39,14 +43,12 @@ namespace InventoryManagement.API.Controllers
         {
             var products = await _productService.GetAllAsync();
 
-            if (!products.Any())
-                return NotFound(new { message = "Nenhum produto encontrado" });
 
             return Ok(products);
         }
 
         [HttpPut("id")]
-        public async Task<IActionResult> Update(int id, [FromBody] ProductUpdateDTO updatedProduct)
+        public async Task<IActionResult> Update(int id, [FromBody] ProductUpdateDTO? updatedProduct)
         {
             if (updatedProduct == null)
                 return BadRequest(new { message = "Dados inválidos." });

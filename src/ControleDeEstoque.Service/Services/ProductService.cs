@@ -15,7 +15,7 @@ namespace InventoryManagement.Service.Services
             _repository = repository;
         }
 
-        public async Task<ProductDTO> CreateAsync(ProductCreateDTO productCreate)
+        public async Task<ProductDTO?> CreateAsync(ProductCreateDTO productCreate)
         {
             var product = AutoMapperConfig.ProductCreateDTOFromEntity(productCreate);
 
@@ -32,7 +32,7 @@ namespace InventoryManagement.Service.Services
             return productDTO;
         }
 
-        public async Task<List<ProductDTO>> GetAllAsync()
+        public async Task<List<ProductDTO>?> GetAllAsync()
         {
             var productEntity = await _repository.GetAllAsync();
 
@@ -45,9 +45,6 @@ namespace InventoryManagement.Service.Services
         public async Task<ProductDTO?> UpdateAsync(int id, ProductUpdateDTO updatedProduct)
         {
             var foundProduct = await _repository.GetAsync(id);
-
-            if (foundProduct == null)
-                return null;
 
             var product = AutoMapperConfig.ProductUpdateDTOFromEntity(updatedProduct);
 
