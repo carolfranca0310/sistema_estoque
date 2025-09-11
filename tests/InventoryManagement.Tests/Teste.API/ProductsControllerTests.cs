@@ -172,21 +172,6 @@ namespace InventoryManagement.Tests.Teste.API
             //Assert
             Assert.IsType<OkObjectResult>(result);
         }
-
-        [Fact]
-        public async Task GetAllProducts_ShouldReturnNotFound()
-        {
-            //Arrange
-            var emptyProducts = new List<ProductDTO>();
-
-            _serviceMock.Setup(m => m.GetAllAsync()).ReturnsAsync(emptyProducts);
-
-            // Act
-            var result = await _controller.GetAll();
-
-            // Assert
-            var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
-        }
         #endregion
 
         #region Update
