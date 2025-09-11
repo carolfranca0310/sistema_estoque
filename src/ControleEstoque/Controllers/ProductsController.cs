@@ -21,7 +21,6 @@ namespace InventoryManagement.API.Controllers
 
             if (savedProduct == null)
                 return BadRequest("Erro ao salvar produto");
-
             return Ok(savedProduct);
         }
 
@@ -42,6 +41,9 @@ namespace InventoryManagement.API.Controllers
         public async Task<IActionResult> GetAll()
         {
             var products = await _productService.GetAllAsync();
+
+            if (!products.Any())
+                return NotFound((new { message = "Nenhum produto encontrado." }));
 
 
             return Ok(products);

@@ -1,5 +1,4 @@
 ﻿using InventoryManagement.Domain.DTO;
-using InventoryManagement.Domain.Entity;
 using InventoryManagement.Domain.Interfaces.IRepository;
 using InventoryManagement.Domain.Interfaces.IService;
 using InventoryManagement.Domain.Setup;

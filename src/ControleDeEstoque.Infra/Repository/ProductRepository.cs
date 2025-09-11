@@ -38,8 +38,8 @@ namespace InventoryManagement.Infra.Repository
             var product = await GetAsync(id);
 
             product.Name = updatedProduct.Name;
-            product.PurchaseDate = updatedProduct.PurchaseDate;
-            product.ExpirationDate = updatedProduct.ExpirationDate;
+            product.Brand = updatedProduct.Brand;
+            product.Weight = updatedProduct.Weight;
 
             _context.Products.Update(product);
             await _context.SaveChangesAsync();
