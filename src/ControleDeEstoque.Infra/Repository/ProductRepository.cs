@@ -2,6 +2,7 @@
 using InventoryManagement.Domain.Interfaces.IRepository;
 using InventoryManagement.Infra.Context;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace InventoryManagement.Infra.Repository
 {
@@ -30,7 +31,9 @@ namespace InventoryManagement.Infra.Repository
 
         public async Task<List<Product>> GetAllAsync()
         {
-            return await _context.Products.ToListAsync();
+            return await _context.Products
+                        .OrderBy(p => p.Name)
+                        .ToListAsync();
         }
 
         public async Task<Product> UpdateAsync(int id, Product updatedProduct)
@@ -54,5 +57,11 @@ namespace InventoryManagement.Infra.Repository
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<Product?> CheckingExistingProductAsync(Expression<Func<Product, bool>> predicate)
+        {
+            return await _context.Products.FirstOrDefaultAsync(predicate);
+        }
+
     }
 }
