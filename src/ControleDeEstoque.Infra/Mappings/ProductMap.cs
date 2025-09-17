@@ -1,7 +1,6 @@
 ﻿using InventoryManagement.Domain.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Xml.Schema;
 
 namespace InventoryManagement.Infra.Mappings
 {
@@ -20,13 +19,16 @@ namespace InventoryManagement.Infra.Mappings
                    .IsRequired()
                    .HasColumnName("name");
 
-            builder.Property(x => x.PurchaseDate)
+            builder.Property(x => x.Brand)
                     .IsRequired()
-                    .HasColumnName("purchase_date");
+                    .HasColumnName("brand");
 
-            builder.Property(x => x.ExpirationDate)
+            builder.Property(x => x.Weight)
                    .IsRequired()
-                   .HasColumnName("expiration_date");
+                   .HasColumnName("weight");
+
+            builder.HasIndex(p => new { p.Name, p.Brand, p.Weight })
+                   .IsUnique();
         }
     }
 }

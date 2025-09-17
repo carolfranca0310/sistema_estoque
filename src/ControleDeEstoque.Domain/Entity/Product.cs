@@ -3,10 +3,10 @@
     public class Product: Base
     {
         public string Name { get; set; }
-        public DateTime PurchaseDate { get; set; }
-        public DateTime ExpirationDate { get; set; }
+        public string Brand { get; set; }
+        public decimal Weight { get; set; }
 
-        public Product(string name, DateTime purchaseDate, DateTime expirationDate)
+        public Product(string name, string brand, decimal weight)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -14,8 +14,8 @@
             }
 
             Name = name;
-            PurchaseDate = purchaseDate;
-            ExpirationDate = expirationDate;
+            Brand = brand;
+            Weight = weight;
         }
 
     }

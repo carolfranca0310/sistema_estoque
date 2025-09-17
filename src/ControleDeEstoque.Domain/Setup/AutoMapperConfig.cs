@@ -12,15 +12,15 @@ namespace InventoryManagement.Domain.Setup
             {
                 Id = product.Id,
                 Name = product.Name,
-                ExpirationDate = product.ExpirationDate,
-                PurchaseDate = product.PurchaseDate,
+                Brand = product.Brand,
+                Weight = product.Weight
             };
             return dto;
         }
 
         public static Product ProductDTOFromEntity(ProductDTO dto)
         {
-            var entity = new Product(dto.Name, dto.PurchaseDate, dto.ExpirationDate);
+            var entity = new Product(dto.Name, dto.Brand, dto.Weight);
 
             entity.Id = dto.Id;
             return entity;
@@ -28,14 +28,14 @@ namespace InventoryManagement.Domain.Setup
 
         public static Product ProductCreateDTOFromEntity(ProductCreateDTO dtoCreate)
         {
-            var entity = new Product(dtoCreate.Name, dtoCreate.PurchaseDate, dtoCreate.ExpirationDate);
+            var entity = new Product(dtoCreate.Name,dtoCreate.Brand, dtoCreate.Weight);
 
             return entity;
         }
 
         public static Product ProductUpdateDTOFromEntity(ProductUpdateDTO dtoUpdate)
         {
-            var entity = new Product(dtoUpdate.Name, dtoUpdate.PurchaseDate, dtoUpdate.ExpirationDate);
+            var entity = new Product(dtoUpdate.Name, dtoUpdate.Brand, dtoUpdate.Weight);
 
             return entity;
         }

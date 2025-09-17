@@ -1,6 +1,8 @@
 ﻿using InventoryManagement.Domain.DTO;
+using InventoryManagement.Domain.Exceptions;
 using InventoryManagement.Domain.Interfaces.IService;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace InventoryManagement.API.Controllers
 {
@@ -17,12 +19,19 @@ namespace InventoryManagement.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] ProductCreateDTO product)
         {
-            ProductDTO? savedProduct = await _productService.CreateAsync(product);
+            try
+            {
+                ProductDTO? savedProduct = await _productService.CreateAsync(product);
 
-            if (savedProduct == null)
-                return BadRequest("Erro ao salvar produto");
+                if (savedProduct == null)
+                    return BadRequest("Erro ao salvar produto");
 
-            return Ok(savedProduct);
+                return Ok(savedProduct);
+            }
+            catch (ConflictException ex)
+            {
+                return StatusCode((int)HttpStatusCode.Conflict, ex.Message);
+            }
         }
 
         [HttpGet("id")]
@@ -43,6 +52,9 @@ namespace InventoryManagement.API.Controllers
         {
             var products = await _productService.GetAllAsync();
 
+            if (!products.Any())
+                return NotFound((new { message = "Nenhum produto encontrado." }));
+
 
             return Ok(products);
         }
@@ -50,15 +62,23 @@ namespace InventoryManagement.API.Controllers
         [HttpPut("id")]
         public async Task<IActionResult> Update(int id, [FromBody] ProductUpdateDTO? updatedProduct)
         {
-            if (updatedProduct == null)
-                return BadRequest(new { message = "Dados inválidos." });
+            try
+            {
+                if (updatedProduct == null)
+                    return BadRequest(new { message = "Dados inválidos." });
 
-            var product = await _productService.UpdateAsync(id, updatedProduct);
+                var product = await _productService.UpdateAsync(id, updatedProduct);
 
-            if (product == null)
-                return NotFound(new { message = "Produto não encontrado." });
+                if (product == null)
+                    return NotFound(new { message = "Produto não encontrado." });
 
-            return Ok(product);
+                return Ok(product);
+            }
+            catch (ConflictException ex)
+            {
+
+                return StatusCode((int)HttpStatusCode.Conflict, ex.Message);
+            }
         }
 
         [HttpDelete]

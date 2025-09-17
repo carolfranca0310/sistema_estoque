@@ -1,4 +1,5 @@
 ﻿using InventoryManagement.Domain.Entity;
+using System.Linq.Expressions;
 
 namespace InventoryManagement.Domain.Interfaces.IRepository
 {
@@ -10,5 +11,6 @@ namespace InventoryManagement.Domain.Interfaces.IRepository
         Task<Product> UpdateAsync(int id, Product updatedProduct);
         Task DeleteAsync(int id);
 
+        Task<Product?> CheckingExistingProductAsync(Expression<Func<Product, bool>> predicate);
     }
 }

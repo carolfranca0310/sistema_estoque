@@ -9,10 +9,12 @@ namespace InventoryManagement.Infra.Context
         public InventoryContext(DbContextOptions<InventoryContext> options) : base(options) { }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<ProductInfo> ProductInfo { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) 
         {
             modelBuilder.ApplyConfiguration(new ProductMap());
+            modelBuilder.ApplyConfiguration(new ProductInfoMap());
         }
     }
 }
