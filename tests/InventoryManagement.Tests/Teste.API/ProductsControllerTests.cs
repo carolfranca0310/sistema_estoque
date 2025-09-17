@@ -1,5 +1,5 @@
 ﻿using InventoryManagement.API.Controllers;
-using InventoryManagement.Domain.DTO;
+using InventoryManagement.Domain.DTO.Product;
 using InventoryManagement.Domain.Interfaces.IService;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Http;
