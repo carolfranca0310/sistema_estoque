@@ -1,6 +1,6 @@
-﻿namespace InventoryManagement.Domain.DTO
+﻿namespace InventoryManagement.Domain.DTO.Product
 {
-    public class ProductCreateDTO
+    public class ProductUpdateDTO
     {
         public string Name { get; set; }
         public string Brand { get; set; }

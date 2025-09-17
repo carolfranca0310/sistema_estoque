@@ -1,4 +1,4 @@
-﻿namespace InventoryManagement.Domain.DTO
+﻿namespace InventoryManagement.Domain.DTO.Product
 {
     public class ProductDTO
     {
