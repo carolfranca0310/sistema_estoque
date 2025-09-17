@@ -1,4 +1,4 @@
-﻿using InventoryManagement.Domain.DTO;
+﻿using InventoryManagement.Domain.DTO.Product;
 using InventoryManagement.Domain.Entity;
 
 namespace InventoryManagement.Domain.Interfaces.IService
