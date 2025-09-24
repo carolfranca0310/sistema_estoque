@@ -1,11 +1,9 @@
 ﻿using InventoryManagement.Domain.DTO;
 using InventoryManagement.Domain.DTO.ProductInfo;
-using InventoryManagement.Domain.Entity;
 using InventoryManagement.Domain.Exceptions;
 using InventoryManagement.Domain.Interfaces.IRepository;
 using InventoryManagement.Domain.Interfaces.IService;
 using InventoryManagement.Domain.Setup;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace InventoryManagement.Service.Services
 {

@@ -1,6 +1,4 @@
-﻿using InventoryManagement.Domain.DTO;
-using InventoryManagement.Domain.Entity;
-using System.Linq.Expressions;
+﻿using InventoryManagement.Domain.Entity;
 
 namespace InventoryManagement.Domain.Interfaces.IRepository
 {
