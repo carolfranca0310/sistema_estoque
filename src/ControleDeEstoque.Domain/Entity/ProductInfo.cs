@@ -1,4 +1,6 @@
-﻿namespace InventoryManagement.Domain.Entity
+﻿using System.Xml.Linq;
+
+namespace InventoryManagement.Domain.Entity
 {
     public class ProductInfo:Base
     {
@@ -12,5 +14,15 @@
 
         //Table relationships
         public Product? Product { get; set; }
+
+        public ProductInfo(int productId, DateTime purchaseDate, DateTime expirationDate, int quantity, decimal unitPrice)
+        {
+            ProductId = productId;
+            PurchaseDate = purchaseDate;
+            ExpirationDate = expirationDate;
+            Quantity = quantity;
+            UnitPrice = unitPrice;
+            TotalPrice = unitPrice * quantity;
+        }
     }
 }

@@ -10,6 +10,8 @@ namespace InventoryManagement.Infra.Setup
         {
             services.AddScoped<IProductRepository, ProductRepository>();
 
+            services.AddScoped<IProductInfoRepository, ProductInfoRepository>();
+
             return services;
         }
     }

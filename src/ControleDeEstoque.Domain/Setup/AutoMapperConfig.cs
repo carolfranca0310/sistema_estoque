@@ -1,4 +1,6 @@
-﻿using InventoryManagement.Domain.DTO.Product;
+﻿using InventoryManagement.Domain.DTO;
+using InventoryManagement.Domain.DTO.Product;
+using InventoryManagement.Domain.DTO.ProductInfo;
 using InventoryManagement.Domain.Entity;
 
 namespace InventoryManagement.Domain.Setup
@@ -40,5 +42,36 @@ namespace InventoryManagement.Domain.Setup
             return entity;
         }
         #endregion
+        public static ProductInfoDTO? ProductInfoEntityFromInfoDTO(ProductInfo? productInfo) 
+        {
+            if (productInfo == null)
+                return null;
+
+            var dto = new ProductInfoDTO
+            {
+                Id = productInfo.Id,
+                ProductId = productInfo.ProductId,
+                PurchaseDate = productInfo.PurchaseDate,
+                ExpirationDate = productInfo.ExpirationDate,
+                Quantity = productInfo.Quantity,
+                UnitPrice = productInfo.UnitPrice,
+                TotalPrice = productInfo.TotalPrice
+            };
+            return dto;
+        }
+        public static ProductInfo ProductInfoDTOFromEntity(ProductInfoDTO dto)
+        {
+            var entity = new ProductInfo(dto.ProductId, dto.PurchaseDate, dto.ExpirationDate, dto.Quantity ,dto.UnitPrice);
+
+            entity.Id = dto.Id;
+            return entity;
+        }
+
+        public static ProductInfo ProductInfoCreateDTOFromEntity(ProductInfoCreateDTO dtoCreate)
+        {
+            var entity = new ProductInfo(dtoCreate.ProductId, dtoCreate.PurchaseDate, dtoCreate.ExpirationDate, dtoCreate.Quantity, dtoCreate.UnitPrice);
+
+            return entity;
+        }
     }
 }
