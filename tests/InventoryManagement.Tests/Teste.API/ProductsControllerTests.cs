@@ -178,7 +178,7 @@ namespace InventoryManagement.Tests.Teste.API
         public async Task GetAllProducts_ShouldReturnSucess()
         {
             //Arrange
-            var newListProduct = new List<ProductDTO>
+            var newProductList = new List<ProductDTO>
             {
                  new ProductDTO
                  {
@@ -191,7 +191,7 @@ namespace InventoryManagement.Tests.Teste.API
                 new ProductDTO()
             };
 
-            _serviceMock.Setup(m => m.GetAllAsync()).ReturnsAsync(newListProduct);
+            _serviceMock.Setup(m => m.GetAllAsync()).ReturnsAsync(newProductList);
 
             //Act
             var result = await _controller.GetAll();
