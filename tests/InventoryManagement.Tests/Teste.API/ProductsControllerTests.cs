@@ -1,11 +1,13 @@
 ﻿using InventoryManagement.API.Controllers;
 using InventoryManagement.Domain.DTO.Product;
+using InventoryManagement.Domain.Exceptions;
 using InventoryManagement.Domain.Interfaces.IService;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Newtonsoft.Json;
+using System.Net;
 
 namespace InventoryManagement.Tests.Teste.API
 {
@@ -62,6 +64,7 @@ namespace InventoryManagement.Tests.Teste.API
             //Assert
             Assert.IsType<NotFoundObjectResult>(result);
         }
+
         #endregion
 
         #region Create
@@ -103,6 +106,30 @@ namespace InventoryManagement.Tests.Teste.API
 
             //Asserts
             Assert.IsType<BadRequestObjectResult>(result);
+        }
+
+        [Fact]
+        public async Task CreateProducts_ShouldReturnConflict_WhenConflictExceptionThrown()
+        {
+            // Arrange
+            var newProduct = new ProductCreateDTO
+            {
+                Name = "Produto teste",
+                Brand = Faker.Lorem.Sentence(),
+                Weight = Faker.RandomNumber.Next(10),
+            };
+
+            _serviceMock
+                .Setup(m => m.CreateAsync(newProduct))
+                .ThrowsAsync(new ConflictException("Produto já existe"));
+
+            // Act
+            var result = await _controller.Create(newProduct);
+
+            // Assert
+            var objectResult = Assert.IsType<ObjectResult>(result);
+            Assert.Equal((int)HttpStatusCode.Conflict, objectResult.StatusCode);
+            Assert.Equal("Produto já existe", objectResult.Value);
         }
         #endregion
 
@@ -172,6 +199,30 @@ namespace InventoryManagement.Tests.Teste.API
             //Assert
             Assert.IsType<OkObjectResult>(result);
         }
+
+        [Fact]
+        public async Task GetAllProducts_ShouldReturnNotFound_WhenNoProductsExist()
+        {
+            // Arrange
+            var emptyProductsList = new List<ProductDTO>();
+
+            _serviceMock
+                .Setup(m => m.GetAllAsync())
+                .ReturnsAsync(emptyProductsList);
+
+            // Act
+            var result = await _controller.GetAll();
+
+            // Assert
+            var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
+            var value = notFoundResult.Value;
+
+            var messageProperty = value.GetType().GetProperty("message")?.GetValue(value, null);
+
+            Assert.Equal("Nenhum produto encontrado.", messageProperty);
+        }
+
+
         #endregion
 
         #region Update
@@ -230,6 +281,28 @@ namespace InventoryManagement.Tests.Teste.API
             //Assert
             Assert.IsType<NotFoundObjectResult>(result);
         }
+
+        [Fact]
+        public async Task UpdateProducts_ShouldReturnConflict_WhenConflictExceptionThrown()
+        {
+            // Arrange
+            int productId = Faker.RandomNumber.Next(10);
+
+            var updatedProduct = new ProductUpdateDTO();
+
+            _serviceMock
+                .Setup(m => m.UpdateAsync(productId, It.IsAny<ProductUpdateDTO>()))
+                .ThrowsAsync(new ConflictException("Conflito ao atualizar o produto."));
+
+            // Act
+            var result = await _controller.Update(productId, updatedProduct);
+
+            // Assert
+            var objectResult = Assert.IsType<ObjectResult>(result);
+            Assert.Equal((int)HttpStatusCode.Conflict, objectResult.StatusCode);
+            Assert.Equal("Conflito ao atualizar o produto.", objectResult.Value);
+        }
+
         #endregion
     }
 }
