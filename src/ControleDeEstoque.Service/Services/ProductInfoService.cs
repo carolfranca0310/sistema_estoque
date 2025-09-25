@@ -39,5 +39,15 @@ namespace InventoryManagement.Service.Services
 
             return productDTO;
         }
+
+        public async Task<ProductInfoDTO?> GetByIdAsync(int id)
+        {
+            var productInfoEntity = await _repository.GetBydIdAsync(id);
+
+            if (productInfoEntity == null)
+                return null;
+            var productInfoDTO = AutoMapperConfig.ProductInfoEntityFromInfoDTO(productInfoEntity);
+            return productInfoDTO;
+        }
     }
 }

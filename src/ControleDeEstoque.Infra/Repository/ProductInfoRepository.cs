@@ -1,6 +1,7 @@
 ﻿using InventoryManagement.Domain.Entity;
 using InventoryManagement.Domain.Interfaces.IRepository;
 using InventoryManagement.Infra.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace InventoryManagement.Infra.Repository
 {
@@ -20,6 +21,11 @@ namespace InventoryManagement.Infra.Repository
             await _context.SaveChangesAsync();
 
             return productInfo;
+        }
+
+        public async Task<ProductInfo?> GetBydIdAsync(int id)
+        {
+            return await _context.ProductInfo.FirstOrDefaultAsync(p => p.Id == id);
         }
     }
 }

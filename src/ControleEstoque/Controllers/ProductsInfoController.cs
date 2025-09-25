@@ -47,7 +47,12 @@ namespace InventoryManagement.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            return Ok();
+            var foundedProductInfo = await _productInfoService.GetByIdAsync(id);
+
+            if (foundedProductInfo == null)
+                return NotFound(new {message = "Produto não encontrado" });
+
+            return Ok(foundedProductInfo);
         }
 
     }
