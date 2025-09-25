@@ -23,9 +23,22 @@ namespace InventoryManagement.Infra.Repository
             return productInfo;
         }
 
-        public async Task<ProductInfo?> GetBydIdAsync(int id)
+        public async Task<List<ProductInfo>> GetAllProductsInfoAsync()
+        {
+            return await _context.ProductInfo
+                .ToListAsync();
+        }
+
+        public async Task<ProductInfo?> GetByIdAsync(int id)
         {
             return await _context.ProductInfo.FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+        public async Task<List<ProductInfo>> GetByProductIdAsync(int id)
+        {
+            return await _context.ProductInfo
+                        .Where(p => p.ProductId == id)
+                        .ToListAsync();
         }
     }
 }

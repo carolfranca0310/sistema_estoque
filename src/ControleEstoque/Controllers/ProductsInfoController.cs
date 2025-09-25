@@ -1,6 +1,8 @@
 ﻿using InventoryManagement.Domain.DTO;
+using InventoryManagement.Domain.DTO.ProductInfo;
 using InventoryManagement.Domain.Exceptions;
 using InventoryManagement.Domain.Interfaces.IService;
+using InventoryManagement.Service.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryManagement.API.Controllers
@@ -44,7 +46,7 @@ namespace InventoryManagement.API.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
             var foundedProductInfo = await _productInfoService.GetByIdAsync(id);
@@ -53,6 +55,29 @@ namespace InventoryManagement.API.Controllers
                 return NotFound(new {message = "Produto não encontrado" });
 
             return Ok(foundedProductInfo);
+        }
+
+        [HttpGet("productInfo/{productId:int}")]
+        public async Task<IActionResult> GetByProductId(int productId)
+        {
+            var productInfos = await _productInfoService.GetByProductIdAsync(productId);
+
+            if (productInfos == null || !productInfos.Any()) 
+                return NotFound();
+
+            return Ok(productInfos);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var productsInfo = await _productInfoService.GetAllProductsInfoAsync();
+
+            if (!productsInfo.Any())
+                return NotFound((new { message = "Nenhum produto encontrado." }));
+
+
+            return Ok(productsInfo);
         }
 
     }

@@ -1,5 +1,7 @@
 ﻿using InventoryManagement.Domain.DTO;
+using InventoryManagement.Domain.DTO.Product;
 using InventoryManagement.Domain.DTO.ProductInfo;
+using InventoryManagement.Domain.Entity;
 using InventoryManagement.Domain.Exceptions;
 using InventoryManagement.Domain.Interfaces.IRepository;
 using InventoryManagement.Domain.Interfaces.IService;
@@ -40,13 +42,37 @@ namespace InventoryManagement.Service.Services
             return productDTO;
         }
 
+        public async Task<List<ProductInfoDTO>> GetAllProductsInfoAsync()
+        {
+            var productInfoEntity = await _repository.GetAllProductsInfoAsync();
+
+            var productInfoDTO = productInfoEntity
+                .Select(p => AutoMapperConfig.ProductInfoEntityFromInfoDTO(p))
+                .ToList();
+
+            return productInfoDTO;
+        }
+
         public async Task<ProductInfoDTO?> GetByIdAsync(int id)
         {
-            var productInfoEntity = await _repository.GetBydIdAsync(id);
+            var productInfoEntity = await _repository.GetByIdAsync(id);
 
             if (productInfoEntity == null)
                 return null;
             var productInfoDTO = AutoMapperConfig.ProductInfoEntityFromInfoDTO(productInfoEntity);
+            return productInfoDTO;
+        }
+        public async Task<List<ProductInfoDTO>> GetByProductIdAsync(int productId)
+        {
+            List<ProductInfo> productInfoEntity = await _repository.GetByProductIdAsync(productId);
+
+            if (productInfoEntity == null)
+                return [];
+
+            var productInfoDTO = productInfoEntity
+                .Select(p => AutoMapperConfig.ProductInfoEntityFromInfoDTO(p))
+                .ToList();
+
             return productInfoDTO;
         }
     }
