@@ -24,7 +24,7 @@ namespace InventoryManagement.API.Controllers
             {
                 var created = await _productInfoService.CreateAsync(productInfo);
 
-                return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+                return Ok(created);
             }
             catch (InvalidProductInfoException ex)
             {
