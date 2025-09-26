@@ -10,5 +10,6 @@ namespace InventoryManagement.Domain.Interfaces.IService
         Task<ProductInfoDTO?> GetByIdAsync(int id);
         Task<List<ProductInfoDTO>> GetByProductIdAsync(int productId);
         Task<List<ProductInfoDTO>> GetAllProductsInfoAsync();
+        Task<ProductInfoDTO> UpdateAsync(int id, ProductInfoUpdateDTO updatedProductInfo);
     }
 }

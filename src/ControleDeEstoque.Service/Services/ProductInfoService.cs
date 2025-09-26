@@ -24,6 +24,7 @@ namespace InventoryManagement.Service.Services
         {
             var existentProduct = await _productRepository.CheckingExistingProductAsync(p => p.Id == productInfo.ProductId) ?? 
                                   throw new NotFoundException($"Produto com ID {productInfo.ProductId} não encontrado.");
+
             if (productInfo == null)
                 throw new ArgumentNullException(nameof(productInfo));
 
@@ -74,6 +75,23 @@ namespace InventoryManagement.Service.Services
                 .ToList();
 
             return productInfoDTO;
+        }
+
+        public async Task<ProductInfoDTO> UpdateAsync(int id, ProductInfoUpdateDTO updatedProductInfo)
+        {
+            var existentProduct = await _productRepository.CheckingExistingProductAsync(p => p.Id == updatedProductInfo.ProductId) ??
+                                  throw new NotFoundException($"Produto com ID {updatedProductInfo.ProductId} não encontrado.");
+
+            var foundProduct = await _repository.GetByIdAsync(id);
+
+            if (foundProduct == null)
+                return null;
+
+            var productInfo = AutoMapperConfig.ProductInfoUpdateDTOFromEntity(updatedProductInfo);
+
+            var productDTO = AutoMapperConfig.ProductInfoEntityFromInfoDTO(await _repository.UpdateAsync(id, productInfo));
+
+            return productDTO;
         }
     }
 }

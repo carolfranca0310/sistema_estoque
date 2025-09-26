@@ -40,5 +40,22 @@ namespace InventoryManagement.Infra.Repository
                         .Where(p => p.ProductId == id)
                         .ToListAsync();
         }
+
+        public async Task<ProductInfo> UpdateAsync(int id, ProductInfo updatedProductInfo)
+        {
+            var productInfo = await GetByIdAsync(id);
+
+            productInfo.ProductId = updatedProductInfo.ProductId;
+            productInfo.UnitPrice = updatedProductInfo.UnitPrice;
+            productInfo.Quantity = updatedProductInfo.Quantity;
+            productInfo.ExpirationDate = updatedProductInfo.ExpirationDate;
+            productInfo.PurchaseDate = updatedProductInfo.PurchaseDate;
+            productInfo.RecalculateTotal();
+
+            _context.ProductInfo.Update(productInfo);
+            await _context.SaveChangesAsync();
+
+            return productInfo;
+        }
     }
 }

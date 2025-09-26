@@ -1,4 +1,5 @@
-﻿using InventoryManagement.Domain.Entity;
+﻿using InventoryManagement.Domain.DTO.ProductInfo;
+using InventoryManagement.Domain.Entity;
 
 namespace InventoryManagement.Domain.Interfaces.IRepository
 {
@@ -8,5 +9,6 @@ namespace InventoryManagement.Domain.Interfaces.IRepository
         Task<ProductInfo?> GetByIdAsync(int id);
         Task<List<ProductInfo>> GetByProductIdAsync(int productId);
         Task<List<ProductInfo>> GetAllProductsInfoAsync();
+        Task<ProductInfo> UpdateAsync(int id, ProductInfo updatedProductInfo);
     }
 }

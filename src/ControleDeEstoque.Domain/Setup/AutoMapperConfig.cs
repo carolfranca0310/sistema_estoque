@@ -30,7 +30,7 @@ namespace InventoryManagement.Domain.Setup
 
         public static Product ProductCreateDTOFromEntity(ProductCreateDTO dtoCreate)
         {
-            var entity = new Product(dtoCreate.Name,dtoCreate.Brand, dtoCreate.Weight);
+            var entity = new Product(dtoCreate.Name, dtoCreate.Brand, dtoCreate.Weight);
 
             return entity;
         }
@@ -42,7 +42,8 @@ namespace InventoryManagement.Domain.Setup
             return entity;
         }
         #endregion
-        public static ProductInfoDTO? ProductInfoEntityFromInfoDTO(ProductInfo? productInfo) 
+        #region ProductInfo
+        public static ProductInfoDTO? ProductInfoEntityFromInfoDTO(ProductInfo? productInfo)
         {
             if (productInfo == null)
                 return null;
@@ -61,7 +62,7 @@ namespace InventoryManagement.Domain.Setup
         }
         public static ProductInfo ProductInfoDTOFromEntity(ProductInfoDTO dto)
         {
-            var entity = new ProductInfo(dto.ProductId, dto.PurchaseDate, dto.ExpirationDate, dto.Quantity ,dto.UnitPrice);
+            var entity = new ProductInfo(dto.ProductId, dto.PurchaseDate, dto.ExpirationDate, dto.Quantity, dto.UnitPrice);
 
             entity.Id = dto.Id;
             return entity;
@@ -73,5 +74,13 @@ namespace InventoryManagement.Domain.Setup
 
             return entity;
         }
+
+        public static ProductInfo ProductInfoUpdateDTOFromEntity(ProductInfoUpdateDTO dtoUpdate)
+        {
+            var entity = new ProductInfo(dtoUpdate.ProductId, dtoUpdate.ExpirationDate, dtoUpdate.PurchaseDate, dtoUpdate.Quantity, dtoUpdate.UnitPrice);
+
+            return entity;
+        } 
+        #endregion
     }
 }
