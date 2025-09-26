@@ -1,13 +1,11 @@
 ﻿namespace InventoryManagement.Domain.DTO.ProductInfo
 {
-    public class ProductInfoDTO
+    public class ProductInfoUpdateDTO
     {
-        public int Id { get; set; }
         public int ProductId { get; set; }
         public DateTime PurchaseDate { get; set; }
         public DateTime ExpirationDate { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
-        public decimal TotalPrice { get; set; }
     }
 }
