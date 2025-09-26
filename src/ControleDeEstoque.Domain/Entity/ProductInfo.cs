@@ -24,5 +24,10 @@ namespace InventoryManagement.Domain.Entity
             UnitPrice = unitPrice;
             TotalPrice = unitPrice * quantity;
         }
+
+        public void RecalculateTotal()
+        {
+            TotalPrice = UnitPrice * Quantity;
+        }
     }
 }
