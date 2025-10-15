@@ -119,9 +119,7 @@ namespace InventoryManagement.Tests.Teste.API
                 Weight = Faker.RandomNumber.Next(10),
             };
 
-            _serviceMock
-                .Setup(m => m.CreateAsync(newProduct))
-                .ThrowsAsync(new ConflictException("Produto já existe"));
+            _serviceMock.Setup(m => m.CreateAsync(newProduct)).ThrowsAsync(new ConflictException("Produto já existe"));
 
             // Act
             var result = await _controller.Create(newProduct);

@@ -91,9 +91,7 @@ namespace InventoryManagement.Tests.Teste.API
         {
             var emptyProductsInfoList = new List<ProductInfoDTO>();
 
-            _serviceMock
-                .Setup(m => m.GetAllProductsInfoAsync())
-                .ReturnsAsync(emptyProductsInfoList);
+            _serviceMock.Setup(m => m.GetAllProductsInfoAsync()).ReturnsAsync(emptyProductsInfoList);
 
             var result = await _controller.GetAll();
 
