@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using InventoryManagement.Domain.Enums;
+using System.Xml.Linq;
 
 namespace InventoryManagement.Domain.Entity
 {
@@ -10,6 +11,8 @@ namespace InventoryManagement.Domain.Entity
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal TotalPrice { get; private set; }
+        public Status Status { get; set; }
+        public string? InactivationJustification { get; set; }
 
 
         //Table relationships

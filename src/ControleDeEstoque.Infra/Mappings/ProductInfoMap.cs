@@ -1,4 +1,5 @@
 ﻿using InventoryManagement.Domain.Entity;
+using InventoryManagement.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -47,6 +48,15 @@ namespace InventoryManagement.Infra.Mappings
             builder.HasOne(x => x.Product)
                    .WithMany()
                    .HasForeignKey(x => x.ProductId);
+
+            builder.Property(x => x.Status)
+                   .IsRequired()
+                   .HasColumnName("status")
+                   .HasDefaultValue(Status.Active);
+
+            builder.Property(x => x.InactivationJustification)
+                   .IsRequired(false)
+                   .HasColumnName("inactivation_justification");
         }
     }
 
