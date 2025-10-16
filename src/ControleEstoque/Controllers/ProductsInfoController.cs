@@ -107,5 +107,11 @@ namespace InventoryManagement.API.Controllers
             }
         }
 
+        [HttpPut("{id}/inactivate")]
+        public async Task<ActionResult<ProductInfoDTO>> InactivateAsync(int id, [FromBody] string justification)
+        {
+            var result = await _productInfoService.InactivateAsync(id, justification);
+            return Ok(result);
+        }
     }
 }

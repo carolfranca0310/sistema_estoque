@@ -2,6 +2,7 @@
 using InventoryManagement.Domain.DTO.Product;
 using InventoryManagement.Domain.DTO.ProductInfo;
 using InventoryManagement.Domain.Entity;
+using InventoryManagement.Domain.Enums;
 using InventoryManagement.Domain.Exceptions;
 using InventoryManagement.Domain.Interfaces.IRepository;
 using InventoryManagement.Domain.Interfaces.IService;
@@ -75,6 +76,24 @@ namespace InventoryManagement.Service.Services
                 .ToList();
 
             return productInfoDTO;
+        }
+
+        public async Task<ProductInfoDTO> InactivateAsync(int id, string justification)
+        {
+            var productInfo = await _repository.GetByIdAsync(id);
+
+            if (productInfo == null)
+                throw new KeyNotFoundException($"Informação do Produto com ID {id} não encontrado.");
+
+            if (productInfo.Status == Status.Inactive)
+                throw new InvalidOperationException("Produto já está inativo.");
+
+            productInfo.Status = Status.Inactive;
+            productInfo.InactivationJustification = justification ?? "Desativado manualmente pelo usuário.";
+
+            await _repository.UpdateAsync(id, productInfo);
+
+            return AutoMapperConfig.ProductInfoEntityFromInfoDTO(productInfo);
         }
 
         public async Task<ProductInfoDTO> UpdateAsync(int id, ProductInfoUpdateDTO updatedProductInfo)
