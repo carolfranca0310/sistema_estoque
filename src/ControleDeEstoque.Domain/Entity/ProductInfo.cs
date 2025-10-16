@@ -1,5 +1,4 @@
 ﻿using InventoryManagement.Domain.Enums;
-using System.Xml.Linq;
 
 namespace InventoryManagement.Domain.Entity
 {

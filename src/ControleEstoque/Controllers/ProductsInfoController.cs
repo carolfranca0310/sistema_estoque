@@ -1,9 +1,7 @@
 ﻿using InventoryManagement.Domain.DTO;
-using InventoryManagement.Domain.DTO.Product;
 using InventoryManagement.Domain.DTO.ProductInfo;
 using InventoryManagement.Domain.Exceptions;
 using InventoryManagement.Domain.Interfaces.IService;
-using InventoryManagement.Service.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 

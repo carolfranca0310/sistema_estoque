@@ -2,6 +2,7 @@
 using InventoryManagement.Domain.DTO.Product;
 using InventoryManagement.Domain.DTO.ProductInfo;
 using InventoryManagement.Domain.Entity;
+using InventoryManagement.Domain.Utils.Extensions;
 
 namespace InventoryManagement.Domain.Setup
 {
@@ -56,7 +57,9 @@ namespace InventoryManagement.Domain.Setup
                 ExpirationDate = productInfo.ExpirationDate,
                 Quantity = productInfo.Quantity,
                 UnitPrice = productInfo.UnitPrice,
-                TotalPrice = productInfo.TotalPrice
+                TotalPrice = productInfo.TotalPrice,
+                Status = productInfo.Status.GetDescription(),
+                InactivationJustification = productInfo.InactivationJustification
             };
             return dto;
         }

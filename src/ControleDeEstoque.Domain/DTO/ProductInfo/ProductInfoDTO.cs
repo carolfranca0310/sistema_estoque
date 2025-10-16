@@ -1,4 +1,6 @@
-﻿namespace InventoryManagement.Domain.DTO.ProductInfo
+﻿using InventoryManagement.Domain.Enums;
+
+namespace InventoryManagement.Domain.DTO.ProductInfo
 {
     public class ProductInfoDTO
     {
@@ -9,5 +11,7 @@
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal TotalPrice { get; set; }
+        public string Status { get; set; }
+        public string? InactivationJustification { get; set; }
     }
 }
