@@ -2,6 +2,7 @@
 using InventoryManagement.Domain.DTO.Product;
 using InventoryManagement.Domain.DTO.ProductInfo;
 using InventoryManagement.Domain.Entity;
+using InventoryManagement.Domain.Enums;
 using InventoryManagement.Domain.Utils.Extensions;
 
 namespace InventoryManagement.Domain.Setup
@@ -74,7 +75,7 @@ namespace InventoryManagement.Domain.Setup
         public static ProductInfo ProductInfoCreateDTOFromEntity(ProductInfoCreateDTO dtoCreate)
         {
             var entity = new ProductInfo(dtoCreate.ProductId, dtoCreate.PurchaseDate, dtoCreate.ExpirationDate, dtoCreate.Quantity, dtoCreate.UnitPrice);
-
+            entity.Status = Status.Active;
             return entity;
         }
 
