@@ -78,7 +78,7 @@ namespace InventoryManagement.Service.Services
             return productInfoDTO;
         }
 
-        public async Task<ProductInfoDTO> InactivateAsync(int id, string justification)
+        public async Task<bool> InactivateAsync(int id, string justification)
         {
             var productInfo = await _repository.GetByIdAsync(id);
 
@@ -89,11 +89,11 @@ namespace InventoryManagement.Service.Services
                 throw new InvalidOperationException("Produto já está inativo.");
 
             productInfo.Status = Status.Inactive;
-            productInfo.InactivationJustification = justification ?? "Desativado manualmente pelo usuário.";
+            productInfo.InactivationJustification = justification;
 
             await _repository.UpdateAsync(id, productInfo);
 
-            return AutoMapperConfig.ProductInfoEntityFromInfoDTO(productInfo);
+            return true;
         }
 
         public async Task<ProductInfoDTO> UpdateAsync(int id, ProductInfoUpdateDTO updatedProductInfo)

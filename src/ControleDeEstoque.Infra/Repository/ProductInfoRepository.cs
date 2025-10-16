@@ -1,4 +1,5 @@
-﻿using InventoryManagement.Domain.Entity;
+﻿using InventoryManagement.Domain.DTO.ProductInfo;
+using InventoryManagement.Domain.Entity;
 using InventoryManagement.Domain.Interfaces.IRepository;
 using InventoryManagement.Infra.Context;
 using Microsoft.EntityFrameworkCore;
