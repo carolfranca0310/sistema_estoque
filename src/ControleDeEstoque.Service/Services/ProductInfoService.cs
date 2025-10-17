@@ -64,9 +64,9 @@ namespace InventoryManagement.Service.Services
             var productInfoDTO = AutoMapperConfig.ProductInfoEntityFromInfoDTO(productInfoEntity);
             return productInfoDTO;
         }
-        public async Task<List<ProductInfoDTO>> GetByProductIdAsync(int productId)
+        public async Task<List<ProductInfoDTO>> GetByProductIdAsync(int productId, Status status)
         {
-            List<ProductInfo> productInfoEntity = await _repository.GetByProductIdAsync(productId);
+            List<ProductInfo> productInfoEntity = await _repository.GetByProductIdAsync(productId, status);
 
             if (productInfoEntity == null)
                 return [];

@@ -1,6 +1,7 @@
 ﻿using InventoryManagement.Domain.DTO;
 using InventoryManagement.Domain.DTO.ProductInfo;
 using InventoryManagement.Domain.Entity;
+using InventoryManagement.Domain.Enums;
 
 namespace InventoryManagement.Domain.Interfaces.IService
 {
@@ -8,7 +9,7 @@ namespace InventoryManagement.Domain.Interfaces.IService
     {
         Task<ProductInfoDTO?> CreateAsync(ProductInfoCreateDTO productInfo);
         Task<ProductInfoDTO?> GetByIdAsync(int id);
-        Task<List<ProductInfoDTO>> GetByProductIdAsync(int productId);
+        Task<List<ProductInfoDTO>> GetByProductIdAsync(int productId, Status status);
         Task<List<ProductInfoDTO>> GetAllProductsInfoAsync();
         Task<bool> InactivateAsync(int id, string justification);
         Task<ProductInfoDTO> UpdateAsync(int id, ProductInfoUpdateDTO updatedProductInfo);

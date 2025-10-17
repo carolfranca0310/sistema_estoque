@@ -1,5 +1,6 @@
 ﻿using InventoryManagement.Domain.DTO.ProductInfo;
 using InventoryManagement.Domain.Entity;
+using InventoryManagement.Domain.Enums;
 using InventoryManagement.Domain.Interfaces.IRepository;
 using InventoryManagement.Infra.Context;
 using Microsoft.EntityFrameworkCore;
@@ -35,10 +36,10 @@ namespace InventoryManagement.Infra.Repository
             return await _context.ProductInfo.FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task<List<ProductInfo>> GetByProductIdAsync(int id)
+        public async Task<List<ProductInfo>> GetByProductIdAsync(int id, Status status)
         {
             return await _context.ProductInfo
-                        .Where(p => p.ProductId == id)
+                        .Where(p => p.ProductId == id && p.Status == status)
                         .ToListAsync();
         }
 

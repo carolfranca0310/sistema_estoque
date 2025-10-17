@@ -1,8 +1,10 @@
 ﻿using InventoryManagement.Domain.DTO;
 using InventoryManagement.Domain.DTO.ProductInfo;
+using InventoryManagement.Domain.Enums;
 using InventoryManagement.Domain.Exceptions;
 using InventoryManagement.Domain.Interfaces.IService;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using System.Net;
 
 namespace InventoryManagement.API.Controllers
@@ -58,9 +60,9 @@ namespace InventoryManagement.API.Controllers
         }
 
         [HttpGet("productInfo/{productId:int}")]
-        public async Task<IActionResult> GetByProductId(int productId)
+        public async Task<IActionResult> GetByProductId(int productId, [FromQuery, Required] Status status)
         {
-            var productInfos = await _productInfoService.GetByProductIdAsync(productId);
+            var productInfos = await _productInfoService.GetByProductIdAsync(productId, status);
 
             if (productInfos == null || !productInfos.Any()) 
                 return NotFound();
