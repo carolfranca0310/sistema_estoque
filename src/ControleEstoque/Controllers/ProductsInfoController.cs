@@ -64,9 +64,6 @@ namespace InventoryManagement.API.Controllers
         {
             var productInfos = await _productInfoService.GetByProductIdAsync(productId, status);
 
-            if (productInfos == null || !productInfos.Any()) 
-                return NotFound();
-
             return Ok(productInfos);
         }
 
