@@ -81,9 +81,19 @@ namespace InventoryManagement.Domain.Setup
 
         public static ProductInfo ProductInfoUpdateDTOFromEntity(ProductInfoUpdateDTO dtoUpdate)
         {
-            var entity = new ProductInfo(dtoUpdate.ProductId, dtoUpdate.ExpirationDate, dtoUpdate.PurchaseDate, dtoUpdate.Quantity, dtoUpdate.UnitPrice);
+            var entity = new ProductInfo(dtoUpdate.ProductId, dtoUpdate.ExpirationDate, dtoUpdate.PurchaseDate, dtoUpdate.UnitPrice);
 
             return entity;
+        } 
+        public static ProductInfo ProductInfoUpdateDTOFromEntity(ProductInfoUpdateDTO dtoUpdate, ProductInfo productInfoSaved)
+        {
+           productInfoSaved.ProductId = dtoUpdate.ProductId;
+           productInfoSaved.ExpirationDate = dtoUpdate.ExpirationDate;
+           productInfoSaved.PurchaseDate = dtoUpdate.PurchaseDate;
+           productInfoSaved.UnitPrice = dtoUpdate.UnitPrice;
+           productInfoSaved.RecalculateTotal(); 
+
+            return productInfoSaved;
         } 
         #endregion
     }

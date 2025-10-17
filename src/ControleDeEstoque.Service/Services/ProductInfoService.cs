@@ -101,12 +101,12 @@ namespace InventoryManagement.Service.Services
             var existentProduct = await _productRepository.CheckingExistingProductAsync(p => p.Id == updatedProductInfo.ProductId) ??
                                   throw new NotFoundException($"Produto com ID {updatedProductInfo.ProductId} não encontrado.");
 
-            var foundProduct = await _repository.GetByIdAsync(id);
+            ProductInfo? foundProduct = await _repository.GetByIdAsync(id);
 
             if (foundProduct == null)
                 return null;
 
-            var productInfo = AutoMapperConfig.ProductInfoUpdateDTOFromEntity(updatedProductInfo);
+            var productInfo = AutoMapperConfig.ProductInfoUpdateDTOFromEntity(updatedProductInfo, foundProduct);
 
             var productDTO = AutoMapperConfig.ProductInfoEntityFromInfoDTO(await _repository.UpdateAsync(id, productInfo));
 

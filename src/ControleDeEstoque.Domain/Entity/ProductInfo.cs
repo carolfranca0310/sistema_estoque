@@ -26,6 +26,13 @@ namespace InventoryManagement.Domain.Entity
             UnitPrice = unitPrice;
             TotalPrice = unitPrice * quantity;
         }
+        public ProductInfo(int productId, DateTime purchaseDate, DateTime expirationDate, decimal unitPrice)
+        {
+            ProductId = productId;
+            PurchaseDate = purchaseDate;
+            ExpirationDate = expirationDate;
+            UnitPrice = unitPrice;
+        }
 
         public void RecalculateTotal()
         {
