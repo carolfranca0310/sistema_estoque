@@ -1,6 +1,7 @@
 ﻿using InventoryManagement.API.Controllers;
 using InventoryManagement.Domain.DTO;
 using InventoryManagement.Domain.DTO.ProductInfo;
+using InventoryManagement.Domain.Enums;
 using InventoryManagement.Domain.Interfaces.IService;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -109,15 +110,16 @@ namespace InventoryManagement.Tests.Teste.API
         public async Task GetByProductId_ShouldReturnSucess()
         {
             int productId = 1;
+            Status status = Status.Active;
             var productInfos = new List<ProductInfoDTO>
         {
             new ProductInfoDTO { Id = 1, ProductId = productId}
         };
 
-            _serviceMock.Setup(s => s.GetByProductIdAsync(productId))
+            _serviceMock.Setup(s => s.GetByProductIdAsync(productId, status))
                         .ReturnsAsync(productInfos);
 
-            var result = await _controller.GetByProductId(productId);
+            var result = await _controller.GetByProductId(productId, status);
 
             var okResult = Assert.IsType<OkObjectResult>(result);
             var returnValue = Assert.IsAssignableFrom<IEnumerable<ProductInfoDTO>>(okResult.Value);
@@ -128,10 +130,11 @@ namespace InventoryManagement.Tests.Teste.API
         public async Task GetByProductId_ReturnsNotFound()
         {
             int productId = 1;
-            _serviceMock.Setup(s => s.GetByProductIdAsync(productId))
+            Status status = Status.Active;
+            _serviceMock.Setup(s => s.GetByProductIdAsync(productId, status))
                         .ReturnsAsync(new List<ProductInfoDTO>());
 
-            var result = await _controller.GetByProductId(productId);
+            var result = await _controller.GetByProductId(productId, status);
 
             Assert.IsType<NotFoundResult>(result);
         }
