@@ -1,6 +1,7 @@
 ﻿using InventoryManagement.Domain.DTO;
 using InventoryManagement.Domain.DTO.Product;
 using InventoryManagement.Domain.DTO.ProductInfo;
+using InventoryManagement.Domain.DTO.StockMovement;
 using InventoryManagement.Domain.Entity;
 using InventoryManagement.Domain.Enums;
 using InventoryManagement.Domain.Utils.Extensions;
@@ -44,6 +45,7 @@ namespace InventoryManagement.Domain.Setup
             return entity;
         }
         #endregion
+
         #region ProductInfo
         public static ProductInfoDTO? ProductInfoEntityFromInfoDTO(ProductInfo? productInfo)
         {
@@ -94,7 +96,33 @@ namespace InventoryManagement.Domain.Setup
            productInfoSaved.RecalculateTotal(); 
 
             return productInfoSaved;
-        } 
+        }
+        #endregion
+
+        #region Stock Movement
+        public static StockMovementDTO?  StockMovementEntityFromInfoDTO(StockMovement? stockMovement)
+        {
+            if (stockMovement == null)
+                return null;
+
+            var dto = new StockMovementDTO
+            {
+                Id = stockMovement.Id,
+                ProductInfoId = stockMovement.ProductInfoId,
+                MovementType = stockMovement.MovementType.GetDescription(),
+                MovementDate = stockMovement.MovementDate,
+                Quantity = stockMovement.Quantity
+            };
+            return dto;
+        }
+        public static StockMovement StockMovementDTOFromEntity(StockMovementDTO dto)
+        {
+            var entity = new StockMovement(dto.ProductInfoId, dto.MovementType!.GetEnumFromDescription<MovementType>(), dto.Quantity, dto.MovementDate)
+            {
+                Id = dto.Id
+            };
+            return entity;
+        }
         #endregion
     }
 }

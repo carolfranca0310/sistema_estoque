@@ -12,6 +12,8 @@ namespace InventoryManagement.Infra.Setup
 
             services.AddScoped<IProductInfoRepository, ProductInfoRepository>();
 
+            services.AddScoped<IStockMovementRepository, StockMovementRepository>();
+
             return services;
         }
     }

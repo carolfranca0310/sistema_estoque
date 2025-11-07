@@ -20,7 +20,7 @@ namespace InventoryManagement.Domain.Utils.Extensions
             return descriptionAttribute?.Description ?? value.ToString();
         }
 
-        public static TEnum GetEnumFromDescription<TEnum>(string description) where TEnum : Enum
+        public static TEnum GetEnumFromDescription<TEnum>(this string description) where TEnum : Enum
         {
             if (string.IsNullOrEmpty(description))
                 throw new ArgumentNullException(nameof(description));

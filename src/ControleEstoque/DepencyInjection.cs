@@ -12,6 +12,8 @@ namespace InventoryManagement.API
 
             services.AddScoped<IProductInfoService, ProductInfoService>();
 
+            services.AddScoped<IStockMovementService, StockMovementService>();
+
             return services;
         }
     }
