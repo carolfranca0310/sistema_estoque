@@ -19,14 +19,14 @@ namespace InventoryManagement.Infra.Mappings
 
             builder.Property(x => x.ProductInfoId)
                    .IsRequired()
-                   .HasColumnName("product_id");
+                   .HasColumnName("product_info_id");
 
             builder.Property(x => x.MovementType)
                     .IsRequired()
                     .HasColumnName("movement_type")
                     .HasConversion(
                         l => l.GetDescription(),
-                        l => EnumExtension.GetEnumFromDescription<MovementType>(l)
+                        l => l.GetEnumFromDescription<MovementType>()
                     );
 
             builder.Property(x => x.Quantity)
