@@ -12,6 +12,10 @@ namespace InventoryManagement.Domain.Entity
         //Table relationships
         public ProductInfo? ProductInfo { get; set; }
 
+        public StockMovement()
+        {
+            
+        }
         public StockMovement(int productInfoId, MovementType movementType, int quantity, DateTime movementDate)
         {
             ProductInfoId = productInfoId;

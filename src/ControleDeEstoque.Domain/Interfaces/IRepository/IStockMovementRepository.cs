@@ -9,5 +9,7 @@ namespace InventoryManagement.Domain.Interfaces.IRepository
     public interface IStockMovementRepository
     {
         Task<List<StockMovement>> GetProductMovementsByProductInfoIdAsync(int productInfoId, MovementType? movementType);
+        Task<StockMovement> UpdateRegisterMovementAsync(int productInfoId, StockMovementUpdateDTO updateDto);
+        Task AddAsync(StockMovement stockMovement);
     }
 }

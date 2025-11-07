@@ -1,10 +1,8 @@
-﻿using InventoryManagement.Domain.Enums;
-using InventoryManagement.Domain.Interfaces.IRepository;
+﻿using InventoryManagement.Domain.DTO.StockMovement;
+using InventoryManagement.Domain.Enums;
+using InventoryManagement.Domain.Exceptions;
 using InventoryManagement.Domain.Interfaces.IService;
-using InventoryManagement.Service.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
 
 namespace InventoryManagement.API.Controllers
 {
@@ -27,6 +25,37 @@ namespace InventoryManagement.API.Controllers
             return Ok(productInfos);
         }
 
+        [HttpPut("stockMovement/{productInfoId:int}")]
+        public async Task<IActionResult> UpdateRegisterMovementAsync(int productInfoId, [FromBody] StockMovementUpdateDTO updateDto){
+            if (updateDto == null)
+                return BadRequest(new { message = "Dados inválidos" });
+
+            try
+            {
+                var result = await _stockMovementService.UpdateRegisterMovementAsync(productInfoId, updateDto);
+                return Ok(new
+                {
+                    message = "Movimentação registrada com sucesso.",
+                    movement = result
+                });
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (BadRequestException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { message = "Erro interno ao registrar movimentação." });
+            }
+        }
 
     }
 }
