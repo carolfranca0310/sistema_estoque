@@ -4,6 +4,7 @@ using InventoryManagement.Domain.Exceptions;
 using InventoryManagement.Domain.Interfaces.IRepository;
 using InventoryManagement.Domain.Interfaces.IService;
 using InventoryManagement.Domain.Setup;
+using InventoryManagement.Domain.Utils.Extensions;
 using System.Linq.Expressions;
 
 namespace InventoryManagement.Service.Services
@@ -20,8 +21,7 @@ namespace InventoryManagement.Service.Services
         private async Task ValidateProduct(Expression<Func<Product, bool>> predicate)
         {
 
-            var existingProduct = await _repository
-                .CheckingExistingProductAsync(predicate);
+            var existingProduct = await _repository.CheckingExistingProductAsync(predicate);
 
             if (existingProduct != null)
             {
@@ -31,10 +31,12 @@ namespace InventoryManagement.Service.Services
 
         public async Task<ProductDTO?> CreateAsync(ProductCreateDTO productCreate)
         {
-            await ValidateProduct(p => 
-            p.Name.ToLower() == productCreate.Name.ToLower() &&
-            p.Brand.ToLower() == productCreate.Brand.ToLower() &&
-            p.Weight == productCreate.Weight);
+            await ValidateProduct(
+                p => 
+                p.Name.ToLower() == productCreate.Name.ToLower() &&
+                p.Brand.ToLower() == productCreate.Brand.ToLower() &&
+                p.Weight == productCreate.Weight
+            );
 
             var product = AutoMapperConfig.ProductCreateDTOFromEntity(productCreate);
 
@@ -47,21 +49,22 @@ namespace InventoryManagement.Service.Services
         {
             var productEntity = await _repository.GetAsync(id);
 
-            if (productEntity == null)
-                return null;
-
             var productDTO = AutoMapperConfig.ProductFromDTO(productEntity);
             return productDTO;
         }
 
         public async Task<List<ProductDTO>?> GetAllAsync()
         {
-            var productEntity = await _repository.GetAllAsync();
+            List<Product> productEntity = await _repository.GetAllAsync();
+
+            if (productEntity.IsNullOrEmpty())
+                return [];
 
             var productDTO = productEntity
-                .Select(p => AutoMapperConfig.ProductFromDTO(p))
-                .ToList();
-            return productDTO;
+                            .Select(p => AutoMapperConfig.ProductFromDTO(p))
+                            .ToList();
+
+            return productDTO!;
         }
 
         public async Task<ProductDTO?> UpdateAsync(int id, ProductUpdateDTO updatedProduct)

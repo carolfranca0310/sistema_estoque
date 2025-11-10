@@ -7,6 +7,7 @@ using InventoryManagement.Domain.Exceptions;
 using InventoryManagement.Domain.Interfaces.IRepository;
 using InventoryManagement.Domain.Interfaces.IService;
 using InventoryManagement.Domain.Setup;
+using InventoryManagement.Domain.Utils.Extensions;
 
 namespace InventoryManagement.Service.Services
 {
@@ -44,23 +45,24 @@ namespace InventoryManagement.Service.Services
             return productDTO;
         }
 
-        public async Task<List<ProductInfoDTO>> GetAllProductsInfoAsync()
+        public async Task<List<ProductInfoDTO>>? GetAllProductsInfoAsync()
         {
-            var productInfoEntity = await _repository.GetAllProductsInfoAsync();
+            List<ProductInfo> productInfoEntity = await _repository.GetAllProductsInfoAsync();
 
-            var productInfoDTO = productInfoEntity
-                .Select(p => AutoMapperConfig.ProductInfoEntityFromInfoDTO(p))
-                .ToList();
+            if (productInfoEntity.IsNullOrEmpty())
+                return [];
 
-            return productInfoDTO;
+            List<ProductInfoDTO?> productInfoDTO = productInfoEntity
+                                                  .Select(p => AutoMapperConfig.ProductInfoEntityFromInfoDTO(p))
+                                                  .ToList();
+
+            return productInfoDTO!;
         }
 
         public async Task<ProductInfoDTO?> GetByIdAsync(int id)
         {
             var productInfoEntity = await _repository.GetByIdAsync(id);
 
-            if (productInfoEntity == null)
-                return null;
             var productInfoDTO = AutoMapperConfig.ProductInfoEntityFromInfoDTO(productInfoEntity);
             return productInfoDTO;
         }
@@ -68,22 +70,20 @@ namespace InventoryManagement.Service.Services
         {
             List<ProductInfo> productInfoEntity = await _repository.GetByProductIdAsync(productId, status);
 
-            if (productInfoEntity == null)
+            if (productInfoEntity.IsNullOrEmpty())
                 return [];
 
             var productInfoDTO = productInfoEntity
-                .Select(p => AutoMapperConfig.ProductInfoEntityFromInfoDTO(p))
-                .ToList();
+                                .Select(p => AutoMapperConfig.ProductInfoEntityFromInfoDTO(p))
+                                .ToList();
 
-            return productInfoDTO;
+            return productInfoDTO!;
         }
 
         public async Task<bool> InactivateAsync(int id, string justification)
         {
-            var productInfo = await _repository.GetByIdAsync(id);
-
-            if (productInfo == null)
-                throw new KeyNotFoundException($"Informação do Produto com ID {id} não encontrado.");
+            var productInfo = await _repository.GetByIdAsync(id) ?? 
+                              throw new KeyNotFoundException($"Informação do Produto com ID {id} não encontrado.");
 
             if (productInfo.Status == Status.Inactive)
                 throw new InvalidOperationException("Produto já está inativo.");
@@ -101,16 +101,14 @@ namespace InventoryManagement.Service.Services
             var existentProduct = await _productRepository.CheckingExistingProductAsync(p => p.Id == updatedProductInfo.ProductId) ??
                                   throw new NotFoundException($"Produto com ID {updatedProductInfo.ProductId} não encontrado.");
 
-            ProductInfo? foundProduct = await _repository.GetByIdAsync(id);
+            ProductInfo? foundBatch = await _repository.GetByIdAsync(id) ??
+                                        throw new NotFoundException($"Lote com ID {id} não encontrado.");;
 
-            if (foundProduct == null)
-                return null;
-
-            var productInfo = AutoMapperConfig.ProductInfoUpdateDTOFromEntity(updatedProductInfo, foundProduct);
+            var productInfo = AutoMapperConfig.ProductInfoUpdateDTOFromEntity(updatedProductInfo, foundBatch);
 
             var productDTO = AutoMapperConfig.ProductInfoEntityFromInfoDTO(await _repository.UpdateAsync(id, productInfo));
 
-            return productDTO;
+            return productDTO!;
         }
     }
 }

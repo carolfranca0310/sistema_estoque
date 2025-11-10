@@ -81,7 +81,7 @@ namespace InventoryManagement.API.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             bool deletedProduct = await _productService.DeleteAsync(id);

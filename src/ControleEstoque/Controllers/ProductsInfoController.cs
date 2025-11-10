@@ -48,7 +48,7 @@ namespace InventoryManagement.API.Controllers
             }
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var foundedProductInfo = await _productInfoService.GetByIdAsync(id);
@@ -59,7 +59,7 @@ namespace InventoryManagement.API.Controllers
             return Ok(foundedProductInfo);
         }
 
-        [HttpGet("productInfo/{productId:int}")]
+        [HttpGet("productInfo/{productId}")]
         public async Task<IActionResult> GetByProductId(int productId, [FromQuery, Required] Status status)
         {
             var productInfos = await _productInfoService.GetByProductIdAsync(productId, status);

@@ -10,7 +10,7 @@ namespace InventoryManagement.Domain.Interfaces.IService
         Task<ProductInfoDTO?> CreateAsync(ProductInfoCreateDTO productInfo);
         Task<ProductInfoDTO?> GetByIdAsync(int id);
         Task<List<ProductInfoDTO>> GetByProductIdAsync(int productId, Status status);
-        Task<List<ProductInfoDTO>> GetAllProductsInfoAsync();
+        Task<List<ProductInfoDTO>>? GetAllProductsInfoAsync();
         Task<bool> InactivateAsync(int id, string justification);
         Task<ProductInfoDTO> UpdateAsync(int id, ProductInfoUpdateDTO updatedProductInfo);
     }

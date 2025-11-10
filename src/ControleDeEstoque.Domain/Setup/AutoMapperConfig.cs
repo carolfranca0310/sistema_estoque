@@ -11,8 +11,11 @@ namespace InventoryManagement.Domain.Setup
     public static class AutoMapperConfig
     {
         #region Product
-        public static ProductDTO ProductFromDTO(Product product)
+        public static ProductDTO? ProductFromDTO(Product product)
         {
+            if (product == null)
+                return null;
+
             var dto = new ProductDTO
             {
                 Id = product.Id,

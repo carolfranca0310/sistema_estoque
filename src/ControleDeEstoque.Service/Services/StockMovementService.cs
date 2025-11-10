@@ -5,6 +5,7 @@ using InventoryManagement.Domain.Exceptions;
 using InventoryManagement.Domain.Interfaces.IRepository;
 using InventoryManagement.Domain.Interfaces.IService;
 using InventoryManagement.Domain.Setup;
+using InventoryManagement.Domain.Utils.Extensions;
 
 namespace InventoryManagement.Service.Services
 {
@@ -23,14 +24,14 @@ namespace InventoryManagement.Service.Services
         {
             var stockMovementEntities = await _repository.GetProductMovementsByProductInfoIdAsync(productInfoId, movementType);
 
-            if (stockMovementEntities == null || stockMovementEntities.Count == 0)
+            if (stockMovementEntities.IsNullOrEmpty())
                 return [];
 
             var stockMovementDTOs = stockMovementEntities
                                     .Select(p => AutoMapperConfig.StockMovementEntityFromInfoDTO(p))
                                     .ToList();
 
-            return stockMovementDTOs;
+            return stockMovementDTOs!;
         }
 
         public async Task<StockMovementDTO> UpdateRegisterMovementAsync(int productInfoId, StockMovementUpdateDTO updateDto)
