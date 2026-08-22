@@ -1,13 +1,17 @@
-import './App.css'
+import { Sidebar } from "./components/Sidebar";
+import { Dashboard } from "./screens/Dashboard";
+
 
 function App() {
   return (
-    <main className="flex min-h-screen items-center justify-center">
-      <h1 className="text-4xl font-bold">
-        Sistema de Controle de Estoque
-      </h1>
-    </main>
-  )
+    <div className="min-h-screen bg-slate-100">
+      <Sidebar />
+
+      <main className="ml-56 min-h-screen">
+        <Dashboard />
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;
