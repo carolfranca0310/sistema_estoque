@@ -1,20 +1,13 @@
+import { NavLink } from "react-router-dom";
 
 const navItems = [
   {
     label: "Dashboard",
-    active: true,
-  },
-  {
-    label: "Estoque",
-  },
-  {
-    label: "Lista de compras",
+    path: "/dashboard",
   },
   {
     label: "Entradas",
-  },
-  {
-    label: "Saídas",
+    path: "/entradas",
   },
 ];
 
@@ -46,6 +39,25 @@ export const Sidebar = () => {
         </p>
 
         <ul className="space-y-1">
+          {navItems.map((item) => (
+            <li key={item.label}>
+              <NavLink
+                to={item.path}
+                className={({ isActive }) =>
+                  `flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors ${
+                    isActive
+                      ? "bg-white text-slate-800"
+                      : "text-slate-300 hover:bg-white/10 hover:text-white"
+                  }`
+                }
+              >
+                <span>{item.label}</span>
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+
+        {/* <ul className="space-y-1">
           {navItems.map((item) => {
             return (
               <li key={item.label}>
@@ -62,7 +74,7 @@ export const Sidebar = () => {
               </li>
             );
           })}
-        </ul>
+        </ul> */}
       </nav>
 
       {/* Usuário */}

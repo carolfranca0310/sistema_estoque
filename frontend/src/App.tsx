@@ -1,14 +1,19 @@
+import { Navigate, Route, Routes } from "react-router-dom";
 import { Sidebar } from "./components/Sidebar";
 import { Dashboard } from "./screens/Dashboard";
-
+import { ProductRegistration } from "./screens/ProductRegistration";
 
 function App() {
   return (
     <div className="min-h-screen bg-slate-100">
       <Sidebar />
 
-      <main className="ml-56 min-h-screen">
-        <Dashboard />
+      <main className="ml-56">
+        <Routes>
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/entradas" element={<ProductRegistration />} />
+        </Routes>
       </main>
     </div>
   );
