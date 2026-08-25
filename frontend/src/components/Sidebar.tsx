@@ -9,6 +9,10 @@ const navItems = [
     label: "Entradas",
     path: "/entradas",
   },
+  {
+    label: "Saídas",
+    path: "/saidas",
+  },
 ];
 
 export const Sidebar = () => {
