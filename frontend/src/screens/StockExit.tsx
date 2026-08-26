@@ -9,13 +9,26 @@ export const StockExit = () => {
   const [lot, setLot] = useState("");
   const [quantity, setQuantity] = useState("");
   const [exitDate, setExitDate] = useState("");
+  const [exitType, setExitType] = useState("");
 
   const selectedLot = lotOptions.find((item) => item.value === lot);
   const availableQuantity = selectedLot?.availableQuantity ?? 0;
   const quantityNumber = Number(quantity);
-  const hasInvalidQuantity =
-    quantityNumber > 0 && quantityNumber > availableQuantity;
 
+  const hasInvalidQuantity =
+    quantity === "" ||
+    quantityNumber < 1 ||
+    quantityNumber > availableQuantity;
+
+  const isFormValid =
+    exitType !== "" &&
+    product !== "" &&
+    lot !== "" &&
+    quantity !== "" &&
+    quantityNumber >= 1 &&
+    quantityNumber <= availableQuantity &&
+    exitDate !== "";
+    
   return (
     <main className="min-h-screen bg-slate-50 px-8 py-8">
       <div className="mx-auto max-w-5xl">
@@ -51,6 +64,8 @@ export const StockExit = () => {
                 placeholder="Selecione o tipo"
                 options={exitTypeOptions}
                 name="exitType"
+                value={exitType}
+                onChange={setExitType}
                 required
               />
 
@@ -120,6 +135,7 @@ export const StockExit = () => {
                 <Input
                   label="Quantidade"
                   type="number"
+                  min="1"
                   placeholder="Ex.: 4"
                   name="quantity"
                   value={quantity}
@@ -128,19 +144,27 @@ export const StockExit = () => {
                   disabled={!lot}
                 />
 
-                <p
-                  className={`mt-1.5 text-xs ${
-                    hasInvalidQuantity
-                      ? "text-red-500"
-                      : "text-slate-400"
-                  }`}
-                >
-                  {hasInvalidQuantity
-                    ? `Quantidade maior que o saldo disponível (${availableQuantity}).`
-                    : selectedLot
-                      ? `Saldo disponível: ${availableQuantity} ${selectedLot.unit}.`
-                      : "Selecione um lote para informar a quantidade."}
-                </p>
+                {hasInvalidQuantity && (
+                  <p className="mt-1.5 text-xs text-red-500">
+                    {quantity === ""
+                      ? "Informe a quantidade."
+                      : quantityNumber < 1
+                        ? "A quantidade deve ser maior ou igual a 1."
+                        : `Quantidade maior que o saldo disponível (${availableQuantity}).`}
+                  </p>
+                )}
+
+                {!hasInvalidQuantity && selectedLot && (
+                  <p className="mt-1.5 text-xs text-slate-400">
+                    Saldo disponível: {availableQuantity} {selectedLot.unit}.
+                  </p>
+                )}
+
+                {!selectedLot && (
+                  <p className="mt-1.5 text-xs text-slate-400">
+                    Selecione um lote para informar a quantidade.
+                  </p>
+                )}
               </div>
 
               {/* Data */}
@@ -237,18 +261,17 @@ export const StockExit = () => {
 
           {/* Ações */}
           <div className="flex items-center justify-end gap-3 pb-8">
-            <Button variant="outline">Cancelar</Button>
+            <Button
+              type="button"
+              variant="outline"
+            >
+              Cancelar
+            </Button>
 
             <Button
               type="submit"
               variant="filled"
-              disabled={
-                !product ||
-                !lot ||
-                !quantity ||
-                quantityNumber <= 0 ||
-                hasInvalidQuantity
-              }
+              disabled={!isFormValid}
             >
               Registrar saída
             </Button>
