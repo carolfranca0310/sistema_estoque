@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { Sidebar } from "./components/Sidebar";
 import { Dashboard } from "./screens/Dashboard";
 import { ProductRegistration } from "./screens/ProductRegistration";
+import { StockExit } from "./screens/StockExit";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/entradas" element={<ProductRegistration />} />
+          <Route path="/saidas" element={<StockExit />} />
         </Routes>
       </main>
     </div>
